@@ -34,7 +34,7 @@ After running the application, the Streamlit interface will guide you through th
 2. **Upload the Rubrics:** Upload a PDF document containing the grading rubrics.
 3. **Upload the Question:** Upload the PDF document containing the assignment questions.
 4. **Upload the Answer:** Upload the PDF document containing the student's answers.
-5. Click on `Get Answer` to submit the information and receive grading insights.
+5. Click on `Grade Assignment` to submit the information and receive grading insights.
 
 The application will then display the grading insights based on the provided documents and question.
 
