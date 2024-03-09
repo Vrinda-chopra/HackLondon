@@ -5,11 +5,15 @@ import fitz  # PyMuPDF
 
 # Function to extract text from PDF
 def extract_text_from_pdf(pdf_content):
-    with fitz.open(stream=pdf_content, filetype="pdf") as doc:
-        text = ""
-        for page in doc:
-            text += page.get_text()
-    return text
+    try:
+        with fitz.open(stream=pdf_content, filetype="pdf") as doc:
+            text = ""
+            for page in doc:
+                text += page.get_text()
+        return text
+    except Exception as e:
+        st.error(f"Failed to extract text from PDF: {e}")
+        return None
 
 # Function to send the user's question and the document to the API and return the response
 def get_answer(user_question, Rubrics, Question, Answer):
@@ -21,46 +25,48 @@ def get_answer(user_question, Rubrics, Question, Answer):
     }
 
     body = {
-    "inputs": json.dumps({"User_Question": user_question, "Rubrics": Rubrics, "Question": Question, "Answer": Answer}),
-    "pipeline_name": "Code Grader",
+        "inputs": json.dumps({
+            "User_Question": user_question, 
+            "Rubrics": Rubrics, 
+            "Question": Question, 
+            "Answer": Answer
+        }),
+        "pipeline_name": "Code Grader",
         "username": "ajanraj",
     }
     
-    response = requests.post(url, headers=headers, data=body)
-    print(response)
-    return response.json()
+    try:
+        response = requests.post(url, headers=headers, json=body)  # Use json=body to send the request as JSON
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"API call failed with status code {response.status_code}: {response.text}")
+            return None
+    except Exception as e:
+        st.error(f"Failed to make API call: {e}")
+        return None
 
-
-# Streamlit app
+# Streamlit app interface
 st.title('Assignment Grader')
 
-# Create a text input box for the user's question
+# Create input boxes and file uploaders
 user_question = st.text_input("Enter your question:")
-
-# Create a file uploader for PDF documents
 Rubrics = st.file_uploader("Upload the Rubrics", type=["pdf"])
-
 Question = st.file_uploader("Upload the Question", type=["pdf"])
-
 Answer = st.file_uploader("Upload the Answer", type=["pdf"])
 
-# Check if a file was uploaded
-if Rubrics is not None:
-    # Extract text from the uploaded PDF
-    Rubrics_text = extract_text_from_pdf(Rubrics.getvalue())
-
-    Question_text = extract_text_from_pdf(Question.getvalue())
-
-    Answer_text = extract_text_from_pdf(Answer.getvalue())
+# Trigger API call only when all inputs are provided
+if st.button('Get Answer') and all([Rubrics, Question, Answer, user_question]):
+    Rubrics_text = extract_text_from_pdf(Rubrics.getvalue()) if Rubrics else ""
+    Question_text = extract_text_from_pdf(Question.getvalue()) if Question else ""
+    Answer_text = extract_text_from_pdf(Answer.getvalue()) if Answer else ""
     
-    # Button to submit the question and document
-    if st.button('Get Answer'):
-        # Call the function to get the answer
+    # Proceed only if text extraction was successful
+    if all([Rubrics_text, Question_text, Answer_text]):
         answer = get_answer(user_question, Rubrics_text, Question_text, Answer_text)
-        print(answer)
-        
-        # Display the answer
-        if "output_1" in answer:
+        if answer and "output_1" in answer:
             st.write(answer["output_1"])
         else:
-            st.write(answer)
+            st.error("No answer returned from the API.")
+    else:
+        st.error("Failed to extract text from one or more documents.")
