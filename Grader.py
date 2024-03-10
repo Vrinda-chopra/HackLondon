@@ -3,6 +3,17 @@ import requests
 import json
 import fitz  # PyMuPDF
 
+def set_page_bg_color():
+    st.markdown("""
+    <style>
+    .stApp {
+        background-color: #129783;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+set_page_bg_color() 
+
 # Function to extract text from PDF
 def extract_text_from_pdf(pdf_content):
     with st.spinner('Extracting text from PDF...'):
@@ -48,8 +59,24 @@ def get_answer(user_question, Rubrics, Question, Answer):
             st.sidebar.error(f"Failed to make API call: {e}")
             return None
 
-# Streamlit app interface
-st.title('Assignment Grader')
+
+# Custom CSS to set the title size and possibly color or other properties
+def custom_title(text, font_size='5em'):  # Adjust '3em' as needed
+    st.markdown(f"""
+    <style>
+    .big-title {{
+        font-size: {font_size};
+        font-weight: bold;
+        font-family: Bskerville Old Face;
+        text-align: justify;
+        color: #FFF8DC;
+    }}
+    </style>
+    <p class='big-title'>{text}</p>    
+    """, unsafe_allow_html=True)
+
+# Use the function to display your title with a larger size
+custom_title('Smart Assess')
 
 with st.container():
     user_question = st.text_input("Enter your question:")
@@ -79,3 +106,20 @@ if st.button('Grade Assignment'):
             st.sidebar.error("Failed to extract text from one or more documents.")
     else:
         st.sidebar.warning("Please fill in all fields and upload all required documents to proceed.")
+
+st.divider()
+
+# Updated section with larger font
+st.markdown("""
+<style>
+.big-font {
+    font-size:25px !important;
+    font-family: Bskerville Old Face;
+    text-align: justify;
+    color: #FFF8DC;
+}
+</style>
+<div class="big-font">
+Experience Marking Productivity: a cutting-edge web app revolutionizing grading. Upload question papers, mark student answers, and generate model responses seamlessly. Intuitive and user-friendly, it's your key to efficiency and accuracy in grading. Say goodbye to tedious manual grading and hello to efficiency and accuracy like never before.
+</div>
+""", unsafe_allow_html=True)
