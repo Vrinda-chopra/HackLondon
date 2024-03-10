@@ -120,6 +120,6 @@ st.markdown("""
 }
 </style>
 <div class="big-font">
-Experience Smart Assess: a cutting-edge web app revolutionizing grading. Upload question papers, mark student answers, and generate model responses seamlessly. Intuitive and user-friendly, it's your key to efficiency and accuracy in grading. Say goodbye to tedious manual grading and hello to efficiency and accuracy like never before.
+Experience Smart Assess: a cutting-edge web app revolutionizing grading. Upload question papers, rubrics and mark student answers seamlessly. Intuitive and user-friendly, it's your key to efficiency and accuracy in grading. Say goodbye to tedious manual grading and hello to efficiency and accuracy like never before.
 </div>
 """, unsafe_allow_html=True)
