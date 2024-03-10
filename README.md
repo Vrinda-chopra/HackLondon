@@ -1,6 +1,6 @@
-# Assignment Grader
+# Smart Assess
 
-Assignment Grader is a Streamlit application designed to grade assignments by comparing student submissions against given rubrics. This application leverages the `vectorshift.ai` API to evaluate answers based on the criteria specified in the rubrics document.
+Smart Assess is a Streamlit application designed to grade assignments by comparing student submissions against given rubrics. This application leverages the `vectorshift.ai` API to evaluate answers based on the criteria specified in the rubrics document.
 
 ## Features
 
