@@ -33,9 +33,12 @@ def get_answer(user_question, Rubrics, Question, Answer):
     url = "https://api.vectorshift.ai/api/pipelines/run"
     
     headers = {
-        "Public-Key": st.secrets["PUBLIC_KEY"],
-        "Private-Key": st.secrets["PRIVATE_KEY"],
+        "Public-Key": str(st.secrets["PUBLIC_KEY"]),
+        "Private-Key": str(st.secrets["PRIVATE_KEY"]),
     }
+
+    print(st.secrets["PUBLIC_KEY"])
+    print(st.secrets["PRIVATE_KEY"])
 
     body = {
         "inputs": json.dumps({
