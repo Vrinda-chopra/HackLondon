@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import os
 import fitz  # PyMuPDF
 
 def set_page_bg_color():
@@ -32,8 +33,8 @@ def get_answer(user_question, Rubrics, Question, Answer):
     url = "https://api.vectorshift.ai/api/pipelines/run"
     
     headers = {
-        "Public-Key": "VVMlga4AaQxB7wMBuOMsQH5OhLWrtaBAs_K2aJ-hbcw",
-        "Private-Key": "B_hEa-vpWAmrOnVs9atZ40TKv9H-EvnCD64qeIZfO9I",
+        "Public-Key": st.secrets["PUBLIC_KEY"],
+        "Private-Key": st.secrets["PRIVATE_KEY"],
     }
 
     body = {
