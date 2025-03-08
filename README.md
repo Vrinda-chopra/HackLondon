@@ -1,12 +1,20 @@
 # Smart Assess
 
+As a teaching assistant or examiner, it can be quite tedious to manually grade exams and then evaluate their score.
+
 Smart Assess is a Streamlit application designed to grade assignments by comparing student submissions against given rubrics. This application leverages the `vectorshift.ai` API to evaluate answers based on the criteria specified in the rubrics document.
+
+Built using OpenAI's GPT 4, Vectorshift AI and Streamlit
 
 ## Features
 
 - Upload PDF documents for rubrics, questions, and student answers.
 - Enter specific questions for more directed grading insights.
 - Receive grading insights directly through the Streamlit interface.
+
+## Try it Out
+https://grader-hacklondon.streamlit.app/
+
 
 ## Installation
 
@@ -42,10 +50,9 @@ The application will then display the grading insights based on the provided doc
 
 This application requires valid `Public-Key` and `Private-Key` provided by `vectorshift.ai`. Ensure you replace the placeholder keys in the application code with your actual API keys to use the grading functionality.
 
+
+
 ## Contributing
 
 Contributions to the Assignment Grader application are welcome. If you have suggestions for improving this application, please feel free to fork the repository and submit a pull request.
 
-## Contact
-
-For any queries or further assistance, please reach out through [GitHub Issues](https://github.com/SavaniSawaikar/HackLondon/issues) on the project repository.
